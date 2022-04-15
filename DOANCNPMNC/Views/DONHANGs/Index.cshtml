@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DOANCNPMNC.Models.DONHANG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table{
+        border:1px solid black;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<h2>Danh Sách Đơn Hàng</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NoiDi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoiDen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CanNang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhThucVanChuyen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Ngay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NoiDi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NoiDen)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CanNang)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HinhThucVanChuyen)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TrangThai)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Ngay)
+    </td>
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { id=item.IDDonHang }) |*@
+        @Html.ActionLink("Details", "Details", new { id = item.IDDonHang }) |
+        @*@Html.ActionLink("Delete", "Delete", new { id=item.IDDonHang })*@
+    </td>
+</tr>
+}
+
+</table>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLGiaoHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CTDONHANG">
+    <Key>
+      <PropertyRef Name="IDCTDONHANG" />
+    </Key>
+    <Property Name="IDDonHang" Type="int" />
+    <Property Name="IDShipper" Type="int" />
+    <Property Name="Mota" Type="nvarchar" MaxLength="1000" />
+    <Property Name="IDCTDONHANG" Type="int" Nullable="false" />
+    <Property Name="TongTien" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DONHANG">
+    <Key>
+      <PropertyRef Name="IDDonHang" />
+    </Key>
+    <Property Name="IDDonHang" Type="int" Nullable="false" />
+    <Property Name="NoiDi" Type="nvarchar" MaxLength="100" />
+    <Property Name="NoiDen" Type="nvarchar" MaxLength="100" />
+    <Property Name="CanNang" Type="nvarchar" MaxLength="50" />
+    <Property Name="HinhThucVanChuyen" Type="nvarchar" MaxLength="100" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="100" />
+    <Property Name="Ngay" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PHI">
+    <Key>
+      <PropertyRef Name="IDPhi" />
+    </Key>
+    <Property Name="IDPhi" Type="int" Nullable="false" />
+    <Property Name="IDDonHang" Type="int" />
+    <Property Name="Gia" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SHIPPER">
+    <Key>
+      <PropertyRef Name="IDShipper" />
+    </Key>
+    <Property Name="IDShipper" Type="int" Nullable="false" />
+    <Property Name="TenShipper" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="char" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
+    <Property Name="CMND" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TAIKHOAN">
+    <Key>
+      <PropertyRef Name="IDTaiKhoan" />
+    </Key>
+    <Property Name="IDTaiKhoan" Type="int" Nullable="false" />
+    <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="100" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="100" />
+    <Property Name="LoaiTaiKhoan" Type="int" />
+  </EntityType>
+  <Association Name="FK_CTDONHANG_DONHANG">
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="0..1" />
+    <End Role="CTDONHANG" Type="Self.CTDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="IDDonHang" />
+      </Principal>
+      <Dependent Role="CTDONHANG">
+        <PropertyRef Name="IDDonHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTDONHANG_SHIPPER">
+    <End Role="SHIPPER" Type="Self.SHIPPER" Multiplicity="0..1" />
+    <End Role="CTDONHANG" Type="Self.CTDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHIPPER">
+        <PropertyRef Name="IDShipper" />
+      </Principal>
+      <Dependent Role="CTDONHANG">
+        <PropertyRef Name="IDShipper" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DONHANG_PHI">
+    <End Role="DONHANG" Type="Self.DONHANG" Multiplicity="0..1" />
+    <End Role="PHI" Type="Self.PHI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="IDDonHang" />
+      </Principal>
+      <Dependent Role="PHI">
+        <PropertyRef Name="IDDonHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLGiaoHangModelStoreContainer">
+    <EntitySet Name="CTDONHANG" EntityType="Self.CTDONHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DONHANG" EntityType="Self.DONHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHI" EntityType="Self.PHI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SHIPPER" EntityType="Self.SHIPPER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CTDONHANG_DONHANG" Association="Self.FK_CTDONHANG_DONHANG">
+      <End Role="DONHANG" EntitySet="DONHANG" />
+      <End Role="CTDONHANG" EntitySet="CTDONHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTDONHANG_SHIPPER" Association="Self.FK_CTDONHANG_SHIPPER">
+      <End Role="SHIPPER" EntitySet="SHIPPER" />
+      <End Role="CTDONHANG" EntitySet="CTDONHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DONHANG_PHI" Association="Self.FK_DONHANG_PHI">
+      <End Role="DONHANG" EntitySet="DONHANG" />
+      <End Role="PHI" EntitySet="PHI" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
